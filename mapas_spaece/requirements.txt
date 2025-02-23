@@ -1,5 +1,0 @@
-pandas
-matplotlib
-geopandas
-streamlit
-Pillow
