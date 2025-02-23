@@ -1,5 +1,5 @@
-pandas 
-matplotlib.pyplot 
-geopandas 
+pandas
 matplotlib
-streamlit 
+geopandas
+streamlit
+Pillow
