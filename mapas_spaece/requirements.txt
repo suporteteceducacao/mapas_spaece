@@ -2,5 +2,4 @@ pandas
 matplotlib.pyplot 
 geopandas 
 matplotlib
-unicodedata
 streamlit 
