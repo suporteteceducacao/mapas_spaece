@@ -187,7 +187,7 @@ with st.sidebar:
         Esta aplicação permite gerar mapas coropléticos com base nos resultados do SPAECE.
         
         ### Como Utilizar
-        1. Selecione a **ETAPA**, **ANO**, **COMPONENTE CURRICULAR** e **CREDE** (ou "Ceará Inteiro").
+        1. Selecione a **ETAPA**, **ANO**, **COMPONENTE CURRICULAR** e **CREDE** (ou "CEARÁ").
         2. Clique em **Gerar Mapa**.
         3. O mapa será exibido e poderá ser baixado em formato PNG.
     """)
