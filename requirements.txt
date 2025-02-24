@@ -3,3 +3,4 @@ matplotlib
 geopandas
 streamlit
 Pillow
+openpyxl
