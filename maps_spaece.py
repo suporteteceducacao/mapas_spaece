@@ -49,9 +49,9 @@ def get_colors(etapa):
 def generate_map(etapa, ano, componente, crede, mapa_tipo):
     # Carregar os dados
     if etapa == '2º Ano':
-        df = pd.read_excel("mapas_spaece/xls/dados_alfa.xlsx")
+        df = pd.read_excel("xls/dados_alfa.xlsx")
     else:
-        df = pd.read_excel("mapas_spaece/xls/dados_spaece.xlsx")
+        df = pd.read_excel("xls/dados_spaece.xlsx")
     
     # Normalizar os nomes dos municípios e outras colunas de texto
     df['MUNICIPIO'] = df['MUNICIPIO'].apply(normalize_string)
@@ -72,7 +72,7 @@ def generate_map(etapa, ano, componente, crede, mapa_tipo):
         return None
     
     # Carregar o shapefile
-    gdf = gpd.read_file('mapas_spaece/CE_Municipios_2022/CE_Municipios_2022.shp')
+    gdf = gpd.read_file('CE_Municipios_2022/CE_Municipios_2022.shp')
     
     # Verificar se o shapefile foi carregado corretamente
     if gdf.empty:
@@ -179,7 +179,7 @@ st.set_page_config(
 # Sidebar (Coluna da Esquerda)
 with st.sidebar:
     # Logotipo
-    st.image("mapas_spaece/img/logo_2021.png", width=200)  # Substitua "logo.png" pelo caminho da sua imagem
+    st.image("img/logo_2021.png", width=200)  # Substitua "logo.png" pelo caminho da sua imagem
 
     # Texto explicativo
     st.markdown("""
