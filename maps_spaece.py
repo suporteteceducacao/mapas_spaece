@@ -171,7 +171,7 @@ def generate_map(etapa, ano, componente, crede, mapa_tipo):
 
 # Configuração da página do Streamlit
 st.set_page_config(
-    page_title="Gerador de Mapas Coroplético SPAECE",
+    page_title="Gerador de Mapas Coropléticos SPAECE",
     page_icon="🌍",
     layout="wide"
 )
