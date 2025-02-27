@@ -179,20 +179,18 @@ st.set_page_config(
 # Sidebar (Coluna da Esquerda)
 with st.sidebar:
     # Logotipo
-    st.image("img/logo_2021.png", width=200)  # Substitua "logo.png" pelo caminho da sua imagem
+    st.image("mapas_spaece/img/logo_2021.png", width=200)  # Substitua "logo.png" pelo caminho da sua imagem
 
     # Texto explicativo
     st.markdown("""
-               
+        ## Sobre a Aplicação
+        Esta aplicação permite gerar mapas coropléticos com base nos resultados do SPAECE.
+        
         ### Como Utilizar
         1. Selecione a **ETAPA**, **ANO**, **COMPONENTE CURRICULAR** e **CREDE** (ou "CEARÁ").
         2. Clique em **Gerar Mapa**.
         3. O mapa será exibido e poderá ser baixado em formato PNG.
-    
-        ### Sobre a Aplicação
-        Esta aplicação permite gerar mapas coropléticos com base nos resultados do SPAECE. Foi desenvolvida pelo Setor de Processamento
-        e Monitoramento de resultados / SPRM-DAM...)
-   
+    """)
 
 # Coluna da Direita
 st.title("🌍 Gerador de Mapas SPAECE")
