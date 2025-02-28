@@ -57,9 +57,9 @@ def get_colors(etapa):
 def generate_map(etapa, ano, componente, crede, mapa_tipo):
     # Carregar os dados
     if etapa == '2º Ano':
-        df = pd.read_excel("mapas_spaece/xls/dados_alfa.xlsx")
+        df = pd.read_excel("xls/dados_alfa.xlsx")
     else:
-        df = pd.read_excel("mapas_spaece/xls/dados_spaece.xlsx")
+        df = pd.read_excel("xls/dados_spaece.xlsx")
     
     # Normalizar os nomes dos municípios e outras colunas de texto
     df['MUNICIPIO'] = df['MUNICIPIO'].apply(normalize_string)
