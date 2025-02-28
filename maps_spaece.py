@@ -80,7 +80,7 @@ def generate_map(etapa, ano, componente, crede, mapa_tipo):
         return None
     
     # Carregar o shapefile
-    gdf = gpd.read_file('mapas_spaece/CE_Municipios_2022/CE_Municipios_2022.shp')
+    gdf = gpd.read_file('CE_Municipios_2022/CE_Municipios_2022.shp')
     
     # Verificar se o shapefile foi carregado corretamente
     if gdf.empty:
