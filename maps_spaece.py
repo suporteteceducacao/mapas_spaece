@@ -31,6 +31,12 @@ def get_bounds_and_labels(etapa, componente):
     elif etapa == '9º Ano' and componente == 'LÍNGUA PORTUGUESA':
         bounds = [0, 200, 250, 300, 325, 1000]
         labels = ['Até 200', '200-250', '250-300', 'Acima de 300', 'Acima de 335']
+    elif etapa == '3ª Série EM' and componente == 'MATEMÁTICA':
+        bounds = [0, 250, 300, 350, 375, 1000]
+        labels = ['Até 250', '251-300', '301-350', 'Acima de 351', 'Acima de 355']
+    elif etapa == '3ª Série EM' and componente == 'LÍNGUA PORTUGUESA':
+        bounds = [0, 225, 275, 325, 375, 1000]
+        labels = ['Até 255', '256-275', '276-325', 'Acima de 326', 'Acima de 330']
     else:
         raise ValueError("Combinação de ETAPA e COMPONENTE CURRICULAR não suportada.")
     
@@ -40,6 +46,8 @@ def get_bounds_and_labels(etapa, componente):
 def get_colors(etapa):
     if etapa == '2º Ano':
         colors = ['red', 'yellow', 'orange', 'lime', 'darkgreen']
+    elif etapa == '3ª Série EM':
+        colors = ['red', 'yellow', 'lime', 'darkgreen']
     else:
         colors = ['red', 'yellow', 'lime', 'darkgreen']
     
@@ -49,9 +57,9 @@ def get_colors(etapa):
 def generate_map(etapa, ano, componente, crede, mapa_tipo):
     # Carregar os dados
     if etapa == '2º Ano':
-        df = pd.read_excel("xls/dados_alfa.xlsx")
+        df = pd.read_excel("mapas_spaece/xls/dados_alfa.xlsx")
     else:
-        df = pd.read_excel("xls/dados_spaece.xlsx")
+        df = pd.read_excel("mapas_spaece/xls/dados_spaece.xlsx")
     
     # Normalizar os nomes dos municípios e outras colunas de texto
     df['MUNICIPIO'] = df['MUNICIPIO'].apply(normalize_string)
@@ -72,7 +80,7 @@ def generate_map(etapa, ano, componente, crede, mapa_tipo):
         return None
     
     # Carregar o shapefile
-    gdf = gpd.read_file('CE_Municipios_2022/CE_Municipios_2022.shp')
+    gdf = gpd.read_file('mapas_spaece/CE_Municipios_2022/CE_Municipios_2022.shp')
     
     # Verificar se o shapefile foi carregado corretamente
     if gdf.empty:
@@ -179,7 +187,7 @@ st.set_page_config(
 # Sidebar (Coluna da Esquerda)
 with st.sidebar:
     # Logotipo
-    st.image("img/logo_2021.png", width=200)  # Substitua "logo.png" pelo caminho da sua imagem
+    st.image("mapas_spaece/img/logo_2021.png", width=300)  # Substitua "logo.png" pelo caminho da sua imagem
 
     # Texto explicativo
     st.markdown("""
@@ -196,7 +204,7 @@ with st.sidebar:
 st.title("🌍 Gerador de Mapas SPAECE")
 
 # Listas de opções
-etapas = ['2º Ano', '5º Ano', '9º Ano']
+etapas = ['2º Ano', '5º Ano', '9º Ano', '3ª Série EM']
 anos = [ano for ano in range(2012, 2024) if ano not in [2020, 2021]]  # Anos de 2012 a 2023, exceto 2020 e 2021
 componentes = ['LÍNGUA PORTUGUESA', 'MATEMÁTICA']
 credes = ['FORTALEZA', 'MARACANAU', 'ITAPIPOCA', 'ACARAU', 'CAMOCIM', 'TIANGUA', 'SOBRAL', 'CANINDE',
@@ -232,3 +240,13 @@ if st.button("Gerar Mapa"):
             file_name=f"mapa_spaece_{etapa}_{ano}_{componente}_{mapa_tipo}.png",
             mime="image/png"
         )
+
+        # Rodapé com copyright
+st.markdown(
+    """
+    <div style="text-align: center; margin-top: 50px; font-size: 12px; color: #666;">
+        © 2023 Gerador de Mapas SPAECE. Setor de Processamento e Monitoramento de Resultados - SPMR-DAM/SME Maracanaú. <br>Todos os direitos reservados.
+    </div>
+    """,
+    unsafe_allow_html=True
+)
