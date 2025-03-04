@@ -261,7 +261,7 @@ st.set_page_config(
 # Sidebar (Coluna da Esquerda)
 with st.sidebar:
     # Logotipo
-    st.image("mapas_spaece/img/logo_2021.png", width=300)  # Substitua "logo.png" pelo caminho da sua imagem
+    st.image("img/logo_2021.png", width=300)  # Substitua "logo.png" pelo caminho da sua imagem
 
     # Texto explicativo
     st.markdown("""
