@@ -17,7 +17,7 @@ def normalize_string(text):
 # Função para carregar e mapear os nomes dos municípios
 def load_municipality_names():
     # Carregar a planilha com os nomes dos municípios no formato do shapefile
-    df_municipios = pd.read_excel("mapas_spaece/xls/nome_municipios_shapefile.xlsx")
+    df_municipios = pd.read_excel("xls/nome_municipios_shapefile.xlsx")
     df_municipios['NM_MUN'] = df_municipios['NM_MUN'].apply(normalize_string)
     return df_municipios
 
@@ -108,9 +108,9 @@ macro_regioes = {
 def generate_map(etapa, ano, componente, crede, mapa_tipo, mostrar_nomes):
     # Carregar os dados
     if etapa == '2º Ano':
-        df = pd.read_excel("mapas_spaece/xls/dados_alfa.xlsx")
+        df = pd.read_excel("xls/dados_alfa.xlsx")
     else:
-        df = pd.read_excel("mapas_spaece/xls/dados_spaece.xlsx")
+        df = pd.read_excel("xls/dados_spaece.xlsx")
     
     # Carregar os nomes dos municípios no formato do shapefile
     df_municipios = load_municipality_names()
@@ -134,7 +134,7 @@ def generate_map(etapa, ano, componente, crede, mapa_tipo, mostrar_nomes):
         return None
     
     # Carregar o shapefile
-    gdf = gpd.read_file('mapas_spaece/CE_Municipios_2022/CE_Municipios_2022.shp')
+    gdf = gpd.read_file('CE_Municipios_2022/CE_Municipios_2022.shp')
     
     # Verificar se o shapefile foi carregado corretamente
     if gdf.empty:
@@ -277,7 +277,7 @@ st.set_page_config(
 # Sidebar (Coluna da Esquerda)
 with st.sidebar:
     # Logotipo
-    st.image("mapas_spaece/img/logo_2021.png", width=300)  # Substitua "logo.png" pelo caminho da sua imagem
+    st.image("img/logo_2021.png", width=300)  # Substitua "logo.png" pelo caminho da sua imagem
 
     # Texto explicativo
     st.markdown("""
