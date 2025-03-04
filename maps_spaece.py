@@ -17,7 +17,7 @@ def normalize_string(text):
 # Função para carregar e mapear os nomes dos municípios
 def load_municipality_names():
     # Carregar a planilha com os nomes dos municípios no formato do shapefile
-    df_municipios = pd.read_excel("mapas_spaece/xls/nome_municipios_shapefile.xlsx")
+    df_municipios = pd.read_excel("xls/nome_municipios_shapefile.xlsx")
     df_municipios['NM_MUN'] = df_municipios['NM_MUN'].apply(normalize_string)
     return df_municipios
 
