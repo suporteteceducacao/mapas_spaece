@@ -17,7 +17,7 @@ def normalize_string(text):
 # Função para carregar e mapear os nomes dos municípios
 def load_municipality_names():
     # Carregar a planilha com os nomes dos municípios no formato do shapefile
-    df_municipios = pd.read_excel("xls/nome_municipios_shapefile.xlsx")
+    df_municipios = pd.read_excel("mapas_spaece/xls/nome_municipios_shapefile.xlsx")
     df_municipios['NM_MUN'] = df_municipios['NM_MUN'].apply(normalize_string)
     return df_municipios
 
@@ -94,13 +94,23 @@ regioes_planejamento = {
     "VALE DO JAGUARIBE": ['Alto Santo', 'Ererê', 'Iracema', 'Jaguaretama', 'Jaguaribara', 'Jaguaribe', 'Limoeiro do Norte', 'Morada Nova', 'Palhano', 'Pereiro', 'Potiretama', 'Quixeré', 'Russas', 'São João do Jaguaribe', 'Tabuleiro do Norte']
 }
 
+# Dicionário com as Macro Regiões e suas CREDEs
+macro_regioes = {
+    "MACRO-REGIÃO 01": ['MARACANAÚ', 'ITAPIPOCA', 'HORIZONTE', 'FORTALEZA'],
+    "MACRO-REGIÃO 02": ['ACARAÚ', 'CAMOCIM', 'TIANGUÁ', 'SOBRAL'],
+    "MACRO-REGIÃO 03": ['RUSSAS', 'JAGUARIBE', 'IGUATU', 'ICÓ'],
+    "MACRO-REGIÃO 04": ['BATURITÉ', 'QUIXADÁ', 'SENADOR POMPEU'],
+    "MACRO-REGIÃO 05": ['CANINDÉ', 'CRATÉUS', 'TAUÁ'],
+    "MACRO-REGIÃO 06": ['CRATO', 'JUAZEIRO DO NORTE', 'BREJO SANTO']
+}
+
 # Função para gerar o mapa
 def generate_map(etapa, ano, componente, crede, mapa_tipo, mostrar_nomes):
     # Carregar os dados
     if etapa == '2º Ano':
-        df = pd.read_excel("xls/dados_alfa.xlsx")
+        df = pd.read_excel("mapas_spaece/xls/dados_alfa.xlsx")
     else:
-        df = pd.read_excel("xls/dados_spaece.xlsx")
+        df = pd.read_excel("mapas_spaece/xls/dados_spaece.xlsx")
     
     # Carregar os nomes dos municípios no formato do shapefile
     df_municipios = load_municipality_names()
@@ -124,7 +134,7 @@ def generate_map(etapa, ano, componente, crede, mapa_tipo, mostrar_nomes):
         return None
     
     # Carregar o shapefile
-    gdf = gpd.read_file('CE_Municipios_2022/CE_Municipios_2022.shp')
+    gdf = gpd.read_file('mapas_spaece/CE_Municipios_2022/CE_Municipios_2022.shp')
     
     # Verificar se o shapefile foi carregado corretamente
     if gdf.empty:
@@ -156,6 +166,12 @@ def generate_map(etapa, ano, componente, crede, mapa_tipo, mostrar_nomes):
         if not check_municipality_names(regiao_municipalities, df_municipios, df_filtered):
             return None
         gdf = gdf[gdf['NM_MUN'].isin(regiao_municipalities)]
+        titulo = f'Municípios da {crede} \n Resultados SPAECE {ano} - {componente} {etapa}'
+    elif mapa_tipo == "MACRO-REGIÃO":
+        crede_municipalities = []
+        for crede_macro in macro_regioes[crede]:
+            crede_municipalities.extend(df_filtered[df_filtered['CREDE'] == normalize_string(crede_macro)]['NM_MUN'].unique())
+        gdf = gdf[gdf['NM_MUN'].isin(crede_municipalities)]
         titulo = f'Municípios da {crede} \n Resultados SPAECE {ano} - {componente} {etapa}'
     elif mapa_tipo == "CEARÁ":
         titulo = f'Municípios do Ceará \n Resultados SPAECE {ano} - {componente} {etapa}'
@@ -261,7 +277,7 @@ st.set_page_config(
 # Sidebar (Coluna da Esquerda)
 with st.sidebar:
     # Logotipo
-    st.image("img/logo_2021.png", width=300)  # Substitua "logo.png" pelo caminho da sua imagem
+    st.image("mapas_spaece/img/logo_2021.png", width=300)  # Substitua "logo.png" pelo caminho da sua imagem
 
     # Texto explicativo
     st.markdown("""
@@ -285,6 +301,7 @@ credes = ['FORTALEZA', 'MARACANAU', 'ITAPIPOCA', 'ACARAU', 'CAMOCIM', 'TIANGUA',
           'BATURITE', 'HORIZONTE', 'RUSSAS', 'JAGUARIBE', 'QUIXADA', 'CRATEUS', 'SENADOR POMPEU',
           'TAUA', 'IGUATU', 'ICO', 'CRATO', 'JUAZEIRO DO NORTE', 'BREJO SANTO']
 regioes_planejamento_list = list(regioes_planejamento.keys())
+macro_regioes_list = list(macro_regioes.keys())
 
 # Seletores
 col1, col2 = st.columns(2)
@@ -293,11 +310,13 @@ with col1:
     ano = st.selectbox("ANO:", anos)
     componente = st.selectbox("COMPONENTE CURRICULAR:", componentes)
 with col2:
-    mapa_tipo = st.selectbox("Selecione o tipo de mapa:", ["CREDE", "REGIÃO DE PLANEJAMENTO", "CEARÁ"])
+    mapa_tipo = st.selectbox("Selecione o tipo de mapa:", ["CREDE", "REGIÃO DE PLANEJAMENTO", "MACRO-REGIÃO", "CEARÁ"])
     if mapa_tipo == "CREDE":
         crede = st.selectbox("CREDE:", credes)
     elif mapa_tipo == "REGIÃO DE PLANEJAMENTO":
         crede = st.selectbox("REGIÃO DE PLANEJAMENTO:", regioes_planejamento_list)
+    elif mapa_tipo == "MACRO-REGIÃO":
+        crede = st.selectbox("MACRO-REGIÃO:", macro_regioes_list)
     else:
         crede = None
 
