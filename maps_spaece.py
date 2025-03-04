@@ -98,9 +98,9 @@ regioes_planejamento = {
 def generate_map(etapa, ano, componente, crede, mapa_tipo, mostrar_nomes):
     # Carregar os dados
     if etapa == '2º Ano':
-        df = pd.read_excel("mapas_spaece/xls/dados_alfa.xlsx")
+        df = pd.read_excel("xls/dados_alfa.xlsx")
     else:
-        df = pd.read_excel("mapas_spaece/xls/dados_spaece.xlsx")
+        df = pd.read_excel("xls/dados_spaece.xlsx")
     
     # Carregar os nomes dos municípios no formato do shapefile
     df_municipios = load_municipality_names()
